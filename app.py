@@ -132,10 +132,8 @@ def main():
         print("❌ ERROR: Missing TELEGRAM_TOKEN!")
         return
     
-    # СОЗДАЕМ И НАСТРАИВАЕМ APPLICATION
     application = Application.builder().token(TELEGRAM_TOKEN).build()
     
-    # ДОБАВЛЯЕМ ОБРАБОТЧИКИ
     application.add_handler(CommandHandler("start", start))
     application.add_handler(CommandHandler("ask", ask_command))
     application.add_handler(CommandHandler("help", help_command))
@@ -152,5 +150,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-
-
