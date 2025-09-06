@@ -1,5 +1,6 @@
 from telegram import Update
 from telegram.ext import Application, CommandHandler, ContextTypes, MessageHandler, filters
+from telegram.error import Conflict
 import aiohttp
 import random
 import os
@@ -127,14 +128,14 @@ def main():
     """Запуск бота"""
     print("🔮 Starting Oracle Bot...")
     
-    if not TELEGRAM_TOKEN or not DEEPSEEK_API_KEY:
-        print("❌ ERROR: Missing environment variables!")
-        print("Please set TELEGRAM_TOKEN and DEEPSEEK_API_KEY")
+    if not TELEGRAM_TOKEN:
+        print("❌ ERROR: Missing TELEGRAM_TOKEN!")
         return
     
+    # СОЗДАЕМ И НАСТРАИВАЕМ APPLICATION
     application = Application.builder().token(TELEGRAM_TOKEN).build()
-application.run_polling()
     
+    # ДОБАВЛЯЕМ ОБРАБОТЧИКИ
     application.add_handler(CommandHandler("start", start))
     application.add_handler(CommandHandler("ask", ask_command))
     application.add_handler(CommandHandler("help", help_command))
@@ -142,8 +143,13 @@ application.run_polling()
     
     print("✨ Oracle Bot is running!")
     
+    # ЗАПУСКАЕМ БОТА СРАЗУ ЖЕ
+    try:
+        application.run_polling()
+    except Conflict:
+        print("⚠️ Bot is already running!")
+    except Exception as e:
+        print(f"❌ Error: {e}")
 
 if __name__ == '__main__':
-
     main()
-
