@@ -6,8 +6,8 @@ import os
 import asyncio
 
 # Токены из переменных окружения
-TELEGRAM_TOKEN = os.getenv('8474744696:AAE1mgbIdhK2KJQaR1m_jGwdMj79CJV4VCk')
-DEEPSEEK_API_KEY = os.getenv('sk-b93cd9f4f0c24f9fb4f045d7af4919c9')
+TELEGRAM_TOKEN = os.getenv('TELEGRAM_TOKEN')
+DEEPSEEK_API_KEY = os.getenv('DEEPSEEK_API_KEY')
 DEEPSEEK_API_URL = "https://api.deepseek.com/v1/chat/completions"
 
 async def ask_deepseek(question):
@@ -143,4 +143,5 @@ def main():
     application.run_polling()
 
 if __name__ == '__main__':
+
     main()
