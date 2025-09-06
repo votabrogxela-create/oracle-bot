@@ -133,6 +133,7 @@ def main():
         return
     
     application = Application.builder().token(TELEGRAM_TOKEN).build()
+application.run_polling()
     
     application.add_handler(CommandHandler("start", start))
     application.add_handler(CommandHandler("ask", ask_command))
@@ -140,8 +141,9 @@ def main():
     application.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, handle_message))
     
     print("✨ Oracle Bot is running!")
-    application.run_polling()
+    
 
 if __name__ == '__main__':
 
     main()
+
