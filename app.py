@@ -1,7 +1,5 @@
-import telegram
-print(f"Telegram version: {telegram.__version__}")
 from telegram import Update
-from telegram.ext import Application, CommandHandler, ContextTypes, MessageHandler, filters
+from telegram.ext import ApplicationBuilder, CommandHandler, ContextTypes, MessageHandler, filters
 from telegram.error import Conflict
 import aiohttp
 import random
@@ -134,7 +132,12 @@ def main():
         print("❌ ERROR: Missing TELEGRAM_TOKEN!")
         return
     
-    application = Application.builder().token(TELEGRAM_TOKEN).build()
+    # ИСПРАВЛЕННАЯ СТРОКА - используем ApplicationBuilder
+    application = (
+        ApplicationBuilder()
+        .token(TELEGRAM_TOKEN)
+        .build()
+    )
     
     application.add_handler(CommandHandler("start", start))
     application.add_handler(CommandHandler("ask", ask_command))
@@ -152,4 +155,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-
