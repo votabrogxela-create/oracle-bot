@@ -1,3 +1,5 @@
+import telegram
+print(f"Telegram version: {telegram.__version__}")
 from telegram import Update
 from telegram.ext import Application, CommandHandler, ContextTypes, MessageHandler, filters
 from telegram.error import Conflict
@@ -150,3 +152,4 @@ def main():
 
 if __name__ == '__main__':
     main()
+
