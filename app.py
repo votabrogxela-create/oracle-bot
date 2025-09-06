@@ -143,13 +143,26 @@ def main():
     
     print("✨ Oracle Bot is running!")
     
-    # ЗАПУСКАЕМ БОТА СРАЗУ ЖЕ
     try:
         application.run_polling()
     except Conflict:
         print("⚠️ Bot is already running!")
     except Exception as e:
         print(f"❌ Error: {e}")
+from flask import Flask
+import threading
 
+app = Flask(__name__)
+
+@app.route('/')
+def health_check():
+    return "🔮 Oracle Bot is running!"
+
+def run_flask():
+    app.run(host='0.0.0.0', port=10000)
+
+flask_thread = threading.Thread(target=run_flask, daemon=True)
+flask_thread.start()
 if __name__ == '__main__':
     main()
+
